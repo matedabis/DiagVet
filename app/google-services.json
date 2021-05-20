@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "272733745389",
+    "project_id": "fhirgoal-119c0",
+    "storage_bucket": "fhirgoal-119c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:272733745389:android:473d393b9213ebc4929ce4",
+        "android_client_info": {
+          "package_name": "com.example.fhirgoal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "272733745389-umfohb9hei8uv968acohgpkj9eu3nbm4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fhirgoal",
+            "certificate_hash": "cd2fe0692b78e8eaa121e17777a0852571a8299e"
+          }
+        },
+        {
+          "client_id": "272733745389-kh7fq6kr0r7rojctanidhcqetafd40fc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDL_A5ojnnEIgyYvCgf9S5T86LDL7CdjXU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "272733745389-kh7fq6kr0r7rojctanidhcqetafd40fc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">fhirgoal</string>
+    <string name="name">name</string>
+    <string name="password">password</string>
+    <string name="login">login</string>
+    <string name="register">register</string>
+    <string name="registration">register</string>
+    <string name="cancel">cancel</string>
+    <string name="user_name">user name</string>
+    <string name="email_address">email</string>
+    <string name="password_again">repeat password</string>
+    <string name="phone_number">phone number</string>
+</resources>
