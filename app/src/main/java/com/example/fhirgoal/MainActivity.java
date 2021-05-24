@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
     private static final int SECRET_KEY = 99;
 
-    EditText userNameET;
+    EditText emailET;
     EditText passwordET;
 
     private SharedPreferences preferences;
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        userNameET = findViewById(R.id.editTextUserName);
+        emailET = findViewById(R.id.editTextEmail);
         passwordET = findViewById(R.id.editTextPassword);
 
         preferences = getSharedPreferences(PREF_KEY, MODE_PRIVATE);
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(LOG_TAG, "signInWithCredential:success");
-                    startShopping();
+                    startGoal();
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(LOG_TAG, "signInWithCredential:failure", task.getException());
@@ -93,17 +93,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void login(View view) {
-        String userName = userNameET.getText().toString();
+        String email = emailET.getText().toString();
         String password = passwordET.getText().toString();
 
-        Log.i(LOG_TAG, "Bejelentkezett: " + userName + ", jelszó: " + password);
+        Log.i(LOG_TAG, "Bejelentkezett: " + email + ", jelszó: " + password);
 
-        mAuth.signInWithEmailAndPassword(userName, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Log.d(LOG_TAG, "User loged in successfully");
-                    startShopping();
+                    startGoal();
                 } else {
                     Log.d(LOG_TAG, "User log in fail");
                     Toast.makeText(MainActivity.this, "User log in fail: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
@@ -112,9 +112,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void startShopping() {
-//        Intent intent = new Intent(this, ShopListActivity.class);
-//        startActivity(intent);
+    private void startGoal() {
+        Intent intent = new Intent(this, ListGoalsActivity.class);
+        startActivity(intent);
     }
 
     public void loginWithGoogle(View view) {
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Log.d(LOG_TAG, "Anonym user loged in successfully");
-                    startShopping();
+                    startGoal();
                 } else {
                     Log.d(LOG_TAG, "Anonym user log in fail");
                     Toast.makeText(MainActivity.this, "User log in fail: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
 
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("userName", userNameET.getText().toString());
+        editor.putString("email", emailET.getText().toString());
         editor.putString("password", passwordET.getText().toString());
         editor.apply();
 

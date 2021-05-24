@@ -10,4 +10,25 @@
     <string name="email_address">email</string>
     <string name="password_again">repeat password</string>
     <string name="phone_number">phone number</string>
+    <string name="details">Description</string>
+
+    <string-array name="goal_texts" >
+        <item>AAAAAAAAAAAA</item>
+    </string-array>
+
+    <string-array name="goal_desc" >
+        <item>AAAAAAAAAAAA</item>
+    </string-array>
+
+    <string-array name="goal_status" >
+        <item>AAAAAAAAAAAA</item>
+    </string-array>
+
+    <string-array name="goal_due" >
+        <item>AAAAAAAAAAAA</item>
+    </string-array>
+
+    <string-array name="goal_category">
+        <item>AAAAAAAAAAAA</item>
+    </string-array>
 </resources>

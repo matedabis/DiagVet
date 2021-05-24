@@ -13,7 +13,7 @@ public class Goal {
     private List<String> identifier;
     private String lifecycleStatus;
     private List<String> achievementStatus;
-    private List<String> category;
+    private String category;
     private List<String> priority;
     private String description;
     private String subject;
@@ -31,7 +31,7 @@ public class Goal {
     private Boolean detailBoolean;
     private Integer detailInteger;
     private String detailRatio;
-    private LocalDateTime dueDate;
+    private String dueDate;
     private String dueDuration;
     private LocalDateTime statusDate;
     private String statusReason;
@@ -41,7 +41,32 @@ public class Goal {
     private String outcomeCode;
     private List<String> outcomeReference;
 
-    public Goal() {
+    public Goal(String text, String category, String lifecycleStatus, String description, String dueDate) {
+        this.text = text;
+        this.category = category;
+        this.lifecycleStatus = lifecycleStatus;
+        this.description = description;
+        this.dueDate = dueDate;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public String getLifecycleStatus() {
+        return lifecycleStatus;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getDueDate() {
+        return dueDate;
     }
 
 

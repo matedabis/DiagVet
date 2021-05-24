@@ -9,11 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,8 +27,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     EditText passwordEditText;
     EditText passwordConfirmEditText;
     EditText phoneEditText;
-    Spinner spinner;
-    RadioGroup accountTypeGroup;
 
     private SharedPreferences preferences;
     private FirebaseAuth mAuth;
@@ -60,9 +54,9 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         String userName = preferences.getString("userName", "");
         String password = preferences.getString("password", "");
 
-//        userNameEditText.setText(userName);
-//        passwordEditText.setText(password);
-//        passwordConfirmEditText.setText(password);
+        userNameEditText.setText(userName);
+        passwordEditText.setText(password);
+        passwordConfirmEditText.setText(password);
 
 //        spinner.setOnItemSelectedListener(this);
       //  ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -80,22 +74,20 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         String email = userEmailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
         String passwordConfirm = passwordConfirmEditText.getText().toString();
+        String phone = phoneEditText.getText().toString();
 
         if (!password.equals(passwordConfirm)) {
             Log.e(LOG_TAG, "Nem egyenlő a jelszó és a megerősítése.");
             return;
         }
+        if (userName.isEmpty() || email.isEmpty() || password.isEmpty() || passwordConfirm.isEmpty() || phone.isEmpty()) {
+            Log.e(LOG_TAG, "Minden mező kitöltése kötelező");
+            return;
+        }
 
-        String phone = phoneEditText.getText().toString();
-        String phoneType = spinner.getSelectedItem().toString();
-
-        int accountTypeId = accountTypeGroup.getCheckedRadioButtonId();
-        View radioButton = accountTypeGroup.findViewById(accountTypeId);
-        int id = accountTypeGroup.indexOfChild(radioButton);
-        String accountType =  ((RadioButton)accountTypeGroup.getChildAt(id)).getText().toString();
 
         Log.i(LOG_TAG, "Regisztrált: " + userName + ", e-mail: " + email);
-        // startShopping();
+        startTracker();
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -115,11 +107,11 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         finish();
     }
 
-//    private void startShopping(/* registered used class */) {
-//        Intent intent = new Intent(this, ShopListActivity.class);
-//        // intent.putExtra("SECRET_KEY", SECRET_KEY);
-//        startActivity(intent);
-//    }
+    private void startTracker() {
+        Intent intent = new Intent(this, ListGoalsAdapter.class);
+        // intent.putExtra("SECRET_KEY", SECRET_KEY);
+        startActivity(intent);
+    }
 
     @Override
     protected void onStart() {
