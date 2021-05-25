@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setTitle("Goal tracker");
+
         emailET = findViewById(R.id.editTextEmail);
         passwordET = findViewById(R.id.editTextPassword);
 
@@ -97,19 +99,22 @@ public class MainActivity extends AppCompatActivity {
         String password = passwordET.getText().toString();
 
         Log.i(LOG_TAG, "Bejelentkezett: " + email + ", jelszó: " + password);
-
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Log.d(LOG_TAG, "User loged in successfully");
-                    startGoal();
-                } else {
-                    Log.d(LOG_TAG, "User log in fail");
-                    Toast.makeText(MainActivity.this, "User log in fail: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+        if(!(email.equals("") || password.equals("")))  {
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()){
+                        Log.d(LOG_TAG, "User loged in successfully");
+                        startGoal();
+                    } else {
+                        Log.d(LOG_TAG, "User log in fail");
+                        Toast.makeText(MainActivity.this, "User log in fail: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            Toast.makeText(MainActivity.this, "User log in fail: missing email or password", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void startGoal() {

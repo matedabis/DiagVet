@@ -11,24 +11,31 @@
     <string name="password_again">repeat password</string>
     <string name="phone_number">phone number</string>
     <string name="details">Description</string>
+    <string name="delete">delete</string>
+    <string name="modify">modify</string>
 
     <string-array name="goal_texts" >
         <item>AAAAAAAAAAAA</item>
+        <item>goaltext</item>
     </string-array>
 
     <string-array name="goal_desc" >
         <item>AAAAAAAAAAAA</item>
+        <item>goaldesc</item>
     </string-array>
 
     <string-array name="goal_status" >
         <item>AAAAAAAAAAAA</item>
+        <item>goalstatus</item>
     </string-array>
 
     <string-array name="goal_due" >
         <item>AAAAAAAAAAAA</item>
+        <item>goaldue</item>
     </string-array>
 
     <string-array name="goal_category">
         <item>AAAAAAAAAAAA</item>
+        <item>goalcats</item>
     </string-array>
 </resources>

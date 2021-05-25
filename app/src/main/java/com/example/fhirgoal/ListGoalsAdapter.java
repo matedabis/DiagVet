@@ -106,7 +106,9 @@ public class ListGoalsAdapter extends RecyclerView.Adapter<ListGoalsAdapter.View
         // Member Variables for the TextViews
         private TextView mTitleText;
         private TextView mInfoText;
-        private TextView mPriceText;
+        private TextView mDue;
+        private TextView mCategory;
+        private TextView mStatus;
 
 
         ViewHolder(View itemView) {
@@ -115,9 +117,11 @@ public class ListGoalsAdapter extends RecyclerView.Adapter<ListGoalsAdapter.View
             // Initialize the views.
             mTitleText = itemView.findViewById(R.id.GoalText);
             mInfoText = itemView.findViewById(R.id.subTitle);
-            mPriceText = itemView.findViewById(R.id.category);
+            mDue = itemView.findViewById(R.id.due);
+            mCategory = itemView.findViewById(R.id.category);
+            mStatus = itemView.findViewById(R.id.status);
 
-            itemView.findViewById(R.id.add_to_cart).setOnClickListener(new View.OnClickListener() {
+            itemView.findViewById(R.id.modify).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     ((ListGoalsActivity)mContext).updateAlertIcon();
@@ -128,7 +132,9 @@ public class ListGoalsAdapter extends RecyclerView.Adapter<ListGoalsAdapter.View
         void bindTo(Goal currentItem){
             mTitleText.setText(currentItem.getText());
             mInfoText.setText(currentItem.getDescription());
-            mPriceText.setText((currentItem.getDueDate().toString()));
+            mDue.setText((currentItem.getDueDate().toString()));
+            mCategory.setText(currentItem.getCategory());
+            mStatus.setText(currentItem.getLifecycleStatus());
 
         }
     }

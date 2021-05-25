@@ -49,6 +49,8 @@ public class ListGoalsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goal_list);
 
+        setTitle("Goal tracker - Goals");
+
         user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null) {
             Log.d(LOG_TAG, "Authenticated user!");

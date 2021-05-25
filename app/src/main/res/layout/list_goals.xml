@@ -26,23 +26,57 @@
             android:text="@string/details" />
 
         <TextView
-            android:id="@+id/category"
+            android:id="@+id/status"
             style="@style/GoalDetailText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/subTitle"
+            android:padding="8dp"
+            android:textColor="@color/purple_200"
+            android:text="@string/details" />
+
+        <TextView
+            android:id="@+id/category"
+            style="@style/GoalDetailText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/status"
+            android:layout_marginBottom="12dp"
+            android:padding="8dp"
+            android:textColor="@color/teal_700" />
+
+        <TextView
+            android:id="@+id/due"
+            style="@style/GoalDetailText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/category"
             android:layout_marginBottom="12dp"
             android:padding="8dp"
             android:textColor="@color/red"
             android:layout_centerHorizontal="true"/>
 
-        <Button
-            android:id="@+id/add_to_cart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/category"
-            android:text="Kosárba"
-            android:layout_centerHorizontal="true"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/due">
+
+            <Button
+                android:id="@+id/modify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/modify"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"/>
+
+            <Button
+                android:id="@+id/delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delete"
+                android:layout_marginRight="12dp"/>
+        </LinearLayout>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
