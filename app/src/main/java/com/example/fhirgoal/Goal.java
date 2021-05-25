@@ -8,6 +8,8 @@ import java.util.List;
 
 public class Goal {
 
+    private String id;
+
     private String language;
     private String text;
     private List<String> identifier;
@@ -41,6 +43,8 @@ public class Goal {
     private String outcomeCode;
     private List<String> outcomeReference;
 
+    public Goal() {}
+
     public Goal(String text, String category, String lifecycleStatus, String description, String dueDate) {
         this.text = text;
         this.category = category;
@@ -67,6 +71,14 @@ public class Goal {
 
     public String getDueDate() {
         return dueDate;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
 

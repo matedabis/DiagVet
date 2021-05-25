@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
@@ -18,6 +19,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -29,6 +35,9 @@ public class ListGoalsActivity extends AppCompatActivity {
     private static final String LOG_TAG = ListGoalsActivity.class.getName();
     private static final String PREF_KEY = MainActivity.class.getPackage().toString();
     private FirebaseUser user;
+
+    private FirebaseFirestore mFirestore;
+    private CollectionReference mItems;
 
     private FrameLayout redCircle;
     private TextView countTextView;
@@ -65,18 +74,24 @@ public class ListGoalsActivity extends AppCompatActivity {
             gridNumber = preferences.getInt("gridNum", 1);
         }*/
 
+
         // recycle view
         mRecyclerView = findViewById(R.id.recyclerView);
         // Set the Layout Manager.
         mRecyclerView.setLayoutManager(new GridLayoutManager(
                 this, gridNumber));
+
         // Initialize the ArrayList that will contain the data.
         mItemsData = new ArrayList<>();
+
+        mFirestore = FirebaseFirestore.getInstance();
+        mItems = mFirestore.collection("Items");
+        queryData();
+
         // Initialize the adapter and set it to the RecyclerView.
         mAdapter = new ListGoalsAdapter(this, mItemsData);
         mRecyclerView.setAdapter(mAdapter);
         // Get the data.
-        initializeData();
     }
 
     private void initializeData() {
@@ -99,9 +114,46 @@ public class ListGoalsActivity extends AppCompatActivity {
         for (int i = 0; i < goalsList.length; i++) {
             mItemsData.add(new Goal(goalsList[i], goalsCategory[i], goalsStatus[i], goalsDesc[i],
                     goalsDue[i]));
+            mItems.add(new Goal(goalsList[i], goalsCategory[i], goalsStatus[i], goalsDesc[i],
+                    goalsDue[i]));
         }
         // Notify the adapter of the change.
         mAdapter.notifyDataSetChanged();
+    }
+
+
+    private void queryData() {
+        mItemsData.clear();
+        mItems.get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                        Goal item = document.toObject(Goal.class);
+                        item.setId(document.getId());
+                        mItemsData.add(item);
+                    }
+
+                    if (mItemsData.size() == 0) {
+                        initializeData();
+                        queryData();
+                    }
+
+                    // Notify the adapter of the change.
+                    mAdapter.notifyDataSetChanged();
+                });
+    }
+
+    public void deleteItem(Goal item) {
+        DocumentReference ref = mItems.document(item.getId());
+        ref.delete()
+                .addOnSuccessListener(success -> {
+                    Log.d(LOG_TAG, "Item is successfully deleted: " + item.getId());
+                })
+                .addOnFailureListener(fail -> {
+                    Toast.makeText(this, "Item " + item.getId() + " cannot be deleted.", Toast.LENGTH_LONG).show();
+                });
+
+        queryData();
+//        mNotificationHelper.cancel();
     }
 
 //    @Override

@@ -136,6 +136,8 @@ public class ListGoalsAdapter extends RecyclerView.Adapter<ListGoalsAdapter.View
             mCategory.setText(currentItem.getCategory());
             mStatus.setText(currentItem.getLifecycleStatus());
 
+            itemView.findViewById(R.id.delete).setOnClickListener(view -> ((ListGoalsActivity)mContext).deleteItem(currentItem));
+
         }
     }
 }
