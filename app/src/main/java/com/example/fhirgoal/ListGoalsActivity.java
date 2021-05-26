@@ -163,6 +163,11 @@ public class ListGoalsActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ModifyActivity.class);
         intent.putExtra("SECRET_KEY", SECRET_KEY);
         intent.putExtra("item", item.getId());
+        intent.putExtra("text", item.getText());
+        intent.putExtra("description", item.getDescription());
+        intent.putExtra("lifecycleStatus", item.getLifecycleStatus());
+        intent.putExtra("category", item.getCategory());
+        intent.putExtra("due", item.getDueDate());
         startActivity(intent);
     }
 
@@ -249,6 +254,12 @@ public class ListGoalsActivity extends AppCompatActivity {
         }
 
         redCircle.setVisibility((cartItems > 0) ? VISIBLE : GONE);
+    }
+
+    public void newItem(View view) {
+        Intent intent = new Intent(this, NewItemActivity.class);
+        intent.putExtra("SECRET_KEY", SECRET_KEY);
+        startActivity(intent);
     }
 
 /*    @Override

@@ -19,6 +19,7 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ListGoalsActivity"/>
         <activity android:name=".ModifyActivity"/>
+        <activity android:name=".NewItemActivity"/>
     </application>
 
 

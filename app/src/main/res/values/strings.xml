@@ -19,6 +19,7 @@
     <string name="status">status</string>
     <string name="category">category</string>
     <string name="due">due to</string>
+    <string name="add">Add new goal</string>
 
     <string-array name="goal_texts" >
         <item>AAAAAAAAAAAA</item>

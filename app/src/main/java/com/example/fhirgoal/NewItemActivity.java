@@ -1,8 +1,5 @@
 package com.example.fhirgoal;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,20 +9,17 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ModifyActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    private static final String LOG_TAG = ModifyActivity.class.getName();
-    private static final String PREF_KEY = ModifyActivity.class.getPackage().toString();
+public class NewItemActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    private static final String LOG_TAG = NewItemActivity.class.getName();
+    private static final String PREF_KEY = NewItemActivity.class.getPackage().toString();
     private static final int SECRET_KEY = 99;
 
     EditText titleEditText;
@@ -43,7 +37,7 @@ public class ModifyActivity extends AppCompatActivity implements AdapterView.OnI
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_modify);
+        setContentView(R.layout.activity_new_item);
 
         setTitle("Goal tracker - modify");
 
@@ -65,22 +59,13 @@ public class ModifyActivity extends AppCompatActivity implements AdapterView.OnI
 
 
         preferences = getSharedPreferences(PREF_KEY, MODE_PRIVATE);
-        String userName = preferences.getString("userName", "");
-        String password = preferences.getString("password", "");
-
-
-        titleEditText.setText(bundle.getString("text"));
-        detailEditText.setText(bundle.getString("description"));
-        statusEditText.setText(bundle.getString("lifecycleStatus"));
-        categoryEditText.setText(bundle.getString("category"));
-        dueEditText.setText(bundle.getString("due"));
 
         mAuth = FirebaseAuth.getInstance();
 
         Log.i(LOG_TAG, "onCreate");
     }
 
-    public void modify(View view) {
+    public void save(View view) {
         String title = titleEditText.getText().toString();
         String detail = detailEditText.getText().toString();
         String status = statusEditText.getText().toString();
@@ -89,7 +74,7 @@ public class ModifyActivity extends AppCompatActivity implements AdapterView.OnI
 
         if (title.isEmpty() || detail.isEmpty() || status.isEmpty() || category.isEmpty() || due.isEmpty()) {
             Log.e(LOG_TAG, "Minden mező kitöltése kötelező");
-            Toast.makeText(ModifyActivity.this, "Modify fail: missing user data", Toast.LENGTH_LONG).show();
+            Toast.makeText(NewItemActivity.this, "Modify fail: missing user data", Toast.LENGTH_LONG).show();
             return;
         }
         mFirestore = FirebaseFirestore.getInstance();
@@ -101,9 +86,7 @@ public class ModifyActivity extends AppCompatActivity implements AdapterView.OnI
         map.put("category", category);
         map.put("dueDate", due);
 
-        mFirestore.collection("Items").document(itemId).update(map);
-
-
+        mFirestore.collection("Items").add(map);
 
         startTracker();
 
