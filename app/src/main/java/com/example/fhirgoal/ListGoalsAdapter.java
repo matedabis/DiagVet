@@ -2,6 +2,7 @@ package com.example.fhirgoal;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 
 public class ListGoalsAdapter extends RecyclerView.Adapter<ListGoalsAdapter.ViewHolder> implements Filterable {
 
+    private static final int SECRET_KEY = 99;
     private ArrayList<Goal> mGoalData;
     private ArrayList<Goal> mGoalDataAll;
     private Context mContext;
@@ -121,12 +123,14 @@ public class ListGoalsAdapter extends RecyclerView.Adapter<ListGoalsAdapter.View
             mCategory = itemView.findViewById(R.id.category);
             mStatus = itemView.findViewById(R.id.status);
 
-            itemView.findViewById(R.id.modify).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ((ListGoalsActivity)mContext).updateAlertIcon();
-                }
-            });
+//            itemView.findViewById(R.id.modify).setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+////                    Intent intent = new Intent(ModifyActivity.class);
+////                    intent.putExtra("SECRET_KEY", SECRET_KEY);
+////                    mContext.startActivity();
+//                }
+//            });
         }
 
         void bindTo(Goal currentItem){
@@ -138,6 +142,7 @@ public class ListGoalsAdapter extends RecyclerView.Adapter<ListGoalsAdapter.View
 
             itemView.findViewById(R.id.delete).setOnClickListener(view -> ((ListGoalsActivity)mContext).deleteItem(currentItem));
 
+            itemView.findViewById(R.id.modify).setOnClickListener(view -> ((ListGoalsActivity)mContext).modifyItem(currentItem));
         }
     }
 }

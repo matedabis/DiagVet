@@ -13,6 +13,12 @@
     <string name="details">Description</string>
     <string name="delete">delete</string>
     <string name="modify">modify</string>
+    <string name="title">title</string>
+    <string name="edit">edit</string>
+    <string name="save">save</string>
+    <string name="status">status</string>
+    <string name="category">category</string>
+    <string name="due">due to</string>
 
     <string-array name="goal_texts" >
         <item>AAAAAAAAAAAA</item>

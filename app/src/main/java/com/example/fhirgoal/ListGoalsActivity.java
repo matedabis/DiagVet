@@ -1,5 +1,6 @@
 package com.example.fhirgoal;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ import static android.view.View.VISIBLE;
 public class ListGoalsActivity extends AppCompatActivity {
     private static final String LOG_TAG = ListGoalsActivity.class.getName();
     private static final String PREF_KEY = MainActivity.class.getPackage().toString();
+    private static final int SECRET_KEY = 99;
     private FirebaseUser user;
 
     private FirebaseFirestore mFirestore;
@@ -86,6 +88,7 @@ public class ListGoalsActivity extends AppCompatActivity {
 
         mFirestore = FirebaseFirestore.getInstance();
         mItems = mFirestore.collection("Items");
+
         queryData();
 
         // Initialize the adapter and set it to the RecyclerView.
@@ -154,6 +157,13 @@ public class ListGoalsActivity extends AppCompatActivity {
 
         queryData();
 //        mNotificationHelper.cancel();
+    }
+
+    public void modifyItem(Goal item) {
+        Intent intent = new Intent(this, ModifyActivity.class);
+        intent.putExtra("SECRET_KEY", SECRET_KEY);
+        intent.putExtra("item", item.getId());
+        startActivity(intent);
     }
 
 //    @Override
