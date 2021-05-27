@@ -70,10 +70,10 @@ public class ListGoalsAdapter extends RecyclerView.Adapter<ListGoalsAdapter.View
      * **/
     @Override
     public Filter getFilter() {
-        return shopingFilter;
+        return filter;
     }
 
-    private Filter shopingFilter = new Filter() {
+    private Filter filter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
             ArrayList<Goal> filteredList = new ArrayList<>();
@@ -124,25 +124,16 @@ public class ListGoalsAdapter extends RecyclerView.Adapter<ListGoalsAdapter.View
             mCategory = itemView.findViewById(R.id.category);
             mStatus = itemView.findViewById(R.id.status);
 
-//            itemView.findViewById(R.id.modify).setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-////                    Intent intent = new Intent(ModifyActivity.class);
-////                    intent.putExtra("SECRET_KEY", SECRET_KEY);
-////                    mContext.startActivity();
-//                }
-//            });
         }
 
         void bindTo(Goal currentItem){
             mTitleText.setText(currentItem.getText());
             mInfoText.setText(currentItem.getDescription());
-            mDue.setText((currentItem.getDueDate().toString()));
+            mDue.setText(currentItem.getDueDate());
             mCategory.setText(currentItem.getCategory());
             mStatus.setText(currentItem.getLifecycleStatus());
 
             itemView.findViewById(R.id.delete).setOnClickListener(view -> ((ListGoalsActivity)mContext).deleteItem(currentItem));
-
             itemView.findViewById(R.id.modify).setOnClickListener(view -> ((ListGoalsActivity)mContext).modifyItem(currentItem));
         }
     }

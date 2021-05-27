@@ -61,13 +61,7 @@ public class ModifyActivity extends AppCompatActivity implements AdapterView.OnI
         categoryEditText = findViewById(R.id.categoryEditText);
         dueEditText = findViewById(R.id.dueEditText);
 
-//        Goal item = mFirestore.collection("Items").document(itemId).toObject(Goal.class);
-
-
         preferences = getSharedPreferences(PREF_KEY, MODE_PRIVATE);
-        String userName = preferences.getString("userName", "");
-        String password = preferences.getString("password", "");
-
 
         titleEditText.setText(bundle.getString("text"));
         detailEditText.setText(bundle.getString("description"));
@@ -102,8 +96,6 @@ public class ModifyActivity extends AppCompatActivity implements AdapterView.OnI
         map.put("dueDate", due);
 
         mFirestore.collection("Items").document(itemId).update(map);
-
-
 
         startTracker();
 

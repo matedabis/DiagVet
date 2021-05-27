@@ -64,12 +64,12 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         String phone = phoneEditText.getText().toString();
 
         if (!password.equals(passwordConfirm)) {
-            Log.e(LOG_TAG, "Nem egyenlő a jelszó és a megerősítése.");
+            Log.e(LOG_TAG, "Register fail: confirm password does not match password");
             Toast.makeText(RegisterActivity.this, "Register fail: confirm password does not match password", Toast.LENGTH_LONG).show();
             return;
         }
         if (userName.isEmpty() || email.isEmpty() || password.isEmpty() || passwordConfirm.isEmpty() || phone.isEmpty()) {
-            Log.e(LOG_TAG, "Minden mező kitöltése kötelező");
+            Log.e(LOG_TAG, "Register fail: missing user data");
             Toast.makeText(RegisterActivity.this, "Register fail: missing user data", Toast.LENGTH_LONG).show();
             return;
         }
@@ -83,7 +83,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Log.d(LOG_TAG, "User created successfully");
-               //     startShopping();
                 } else {
                     Log.d(LOG_TAG, "User wasn't created successfully");
                     Toast.makeText(RegisterActivity.this, "User was't created successfully: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
@@ -98,7 +97,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
 
     private void startTracker() {
         Intent intent = new Intent(this, ListGoalsAdapter.class);
-        // intent.putExtra("SECRET_KEY", SECRET_KEY);
+        intent.putExtra("SECRET_KEY", SECRET_KEY);
         startActivity(intent);
     }
 

@@ -55,9 +55,6 @@ public class NewItemActivity extends AppCompatActivity implements AdapterView.On
         categoryEditText = findViewById(R.id.categoryEditText);
         dueEditText = findViewById(R.id.dueEditText);
 
-//        Goal item = mFirestore.collection("Items").document(itemId).toObject(Goal.class);
-
-
         preferences = getSharedPreferences(PREF_KEY, MODE_PRIVATE);
 
         mAuth = FirebaseAuth.getInstance();
@@ -92,14 +89,12 @@ public class NewItemActivity extends AppCompatActivity implements AdapterView.On
 
     }
 
-
-
     public void cancel(View view) {
         finish();
     }
 
     private void startTracker() {
-        Intent intent = new Intent(this, ListGoalsAdapter.class);
+        Intent intent = new Intent(this, ListGoalsActivity.class);
         startActivity(intent);
     }
 

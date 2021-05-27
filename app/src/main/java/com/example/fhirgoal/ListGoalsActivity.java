@@ -34,16 +34,12 @@ import static android.view.View.VISIBLE;
 
 public class ListGoalsActivity extends AppCompatActivity {
     private static final String LOG_TAG = ListGoalsActivity.class.getName();
-    private static final String PREF_KEY = MainActivity.class.getPackage().toString();
     private static final int SECRET_KEY = 99;
     private FirebaseUser user;
 
     private FirebaseFirestore mFirestore;
     private CollectionReference mItems;
 
-    private FrameLayout redCircle;
-    private TextView countTextView;
-    private int cartItems = 0;
     private int gridNumber = 1;
 
     // Member variables.
@@ -52,8 +48,6 @@ public class ListGoalsActivity extends AppCompatActivity {
     private ListGoalsAdapter mAdapter;
 
     private NotificationHelper mNotificationHelper;
-
-    private SharedPreferences preferences;
 
     private boolean viewRow = true;
 

@@ -28,7 +28,6 @@ import com.google.firebase.auth.GoogleAuthProvider;
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getName();
     private static final String PREF_KEY = "12345";
-    private static final int RC_SIGN_IN = 123;
     private static final int SECRET_KEY = 99;
 
     EditText emailET;
@@ -36,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences preferences;
     private FirebaseAuth mAuth;
-    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,40 +50,6 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         Log.i(LOG_TAG, "onCreate");
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-
-            try {
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                Log.d(LOG_TAG, "firebaseAuthWithGoogle:" + account.getId());
-                firebaseAuthWithGoogle(account.getIdToken());
-            } catch (ApiException e) {
-                Log.w(LOG_TAG, "Google sign in failed", e);
-            }
-        }
-    }
-
-    private void firebaseAuthWithGoogle(String idToken) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(LOG_TAG, "signInWithCredential:success");
-                    startGoal();
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(LOG_TAG, "signInWithCredential:failure", task.getException());
-                }
-            }
-        });
     }
 
     public void login(View view) {
@@ -114,26 +78,6 @@ public class MainActivity extends AppCompatActivity {
     private void startGoal() {
         Intent intent = new Intent(this, ListGoalsActivity.class);
         startActivity(intent);
-    }
-
-    public void loginWithGoogle(View view) {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-
-    public void loginAsGuest(View view) {
-        mAuth.signInAnonymously().addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Log.d(LOG_TAG, "Anonym user loged in successfully");
-                    startGoal();
-                } else {
-                    Log.d(LOG_TAG, "Anonym user log in fail");
-                    Toast.makeText(MainActivity.this, "User log in fail: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }
-        });
     }
 
     public void register(View view) {
