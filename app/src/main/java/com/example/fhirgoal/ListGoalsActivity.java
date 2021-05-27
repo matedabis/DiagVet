@@ -169,6 +169,7 @@ public class ListGoalsActivity extends AppCompatActivity {
     }
 
     public void goBack(View view) {
+        FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("SECRET_KEY", SECRET_KEY);
         startActivity(intent);
