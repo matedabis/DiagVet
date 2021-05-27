@@ -51,6 +51,8 @@ public class ListGoalsActivity extends AppCompatActivity {
     private ArrayList<Goal> mItemsData;
     private ListGoalsAdapter mAdapter;
 
+    private NotificationHelper mNotificationHelper;
+
     private SharedPreferences preferences;
 
     private boolean viewRow = true;
@@ -70,13 +72,6 @@ public class ListGoalsActivity extends AppCompatActivity {
             finish();
         }
 
-/*        preferences = getSharedPreferences(PREF_KEY, MODE_PRIVATE);
-        if(preferences != null) {
-            cartItems = preferences.getInt("cartItems", 0);
-            gridNumber = preferences.getInt("gridNum", 1);
-        }*/
-
-
         // recycle view
         mRecyclerView = findViewById(R.id.recyclerView);
         // Set the Layout Manager.
@@ -90,6 +85,8 @@ public class ListGoalsActivity extends AppCompatActivity {
         mItems = mFirestore.collection("Items");
 
         queryData();
+
+        mNotificationHelper = new NotificationHelper(this);
 
         // Initialize the adapter and set it to the RecyclerView.
         mAdapter = new ListGoalsAdapter(this, mItemsData);
@@ -127,7 +124,7 @@ public class ListGoalsActivity extends AppCompatActivity {
 
     private void queryData() {
         mItemsData.clear();
-        mItems.get()
+        mItems.orderBy("text").limit(100).get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                         Goal item = document.toObject(Goal.class);
@@ -156,7 +153,7 @@ public class ListGoalsActivity extends AppCompatActivity {
                 });
 
         queryData();
-//        mNotificationHelper.cancel();
+        mNotificationHelper.send("Item is successfully deleted");
     }
 
     public void modifyItem(Goal item) {
@@ -171,106 +168,17 @@ public class ListGoalsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        super.onCreateOptionsMenu(menu);
-//        getMenuInflater().inflate(R.menu.shop_list_menu, menu);
-//        MenuItem menuItem = menu.findItem(R.id.search_bar);
-//        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String s) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String s) {
-//                Log.d(LOG_TAG, s);
-//                mAdapter.getFilter().filter(s);
-//                return false;
-//            }
-//        });
-//        return true;
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.log_out_button:
-//                Log.d(LOG_TAG, "Logout clicked!");
-//                FirebaseAuth.getInstance().signOut();
-//                finish();
-//                return true;
-//            case R.id.settings_button:
-//                Log.d(LOG_TAG, "Setting clicked!");
-//                FirebaseAuth.getInstance().signOut();
-//                finish();
-//                return true;
-//            case R.id.cart:
-//                Log.d(LOG_TAG, "Cart clicked!");
-//                return true;
-//            case R.id.view_selector:
-//                if (viewRow) {
-//                    changeSpanCount(item, R.drawable.ic_view_grid, 1);
-//                } else {
-//                    changeSpanCount(item, R.drawable.ic_view_row, 2);
-//                }
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
-
-    private void changeSpanCount(MenuItem item, int drawableId, int spanCount) {
-        viewRow = !viewRow;
-        item.setIcon(drawableId);
-        GridLayoutManager layoutManager = (GridLayoutManager) mRecyclerView.getLayoutManager();
-        layoutManager.setSpanCount(spanCount);
-    }
-
-//    @Override
-//    public boolean onPrepareOptionsMenu(Menu menu) {
-//        final MenuItem alertMenuItem = menu.findItem(R.id.cart);
-//        FrameLayout rootView = (FrameLayout) alertMenuItem.getActionView();
-//
-//        redCircle = (FrameLayout) rootView.findViewById(R.id.view_alert_red_circle);
-//        countTextView = (TextView) rootView.findViewById(R.id.view_alert_count_textview);
-//
-//        rootView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onOptionsItemSelected(alertMenuItem);
-//            }
-//        });
-//        return super.onPrepareOptionsMenu(menu);
-//    }
-//
-    public void updateAlertIcon() {
-        cartItems = (cartItems + 1);
-        if (0 < cartItems) {
-            countTextView.setText(String.valueOf(cartItems));
-        } else {
-            countTextView.setText("");
-        }
-
-        redCircle.setVisibility((cartItems > 0) ? VISIBLE : GONE);
-    }
-
     public void newItem(View view) {
         Intent intent = new Intent(this, NewItemActivity.class);
         intent.putExtra("SECRET_KEY", SECRET_KEY);
         startActivity(intent);
     }
 
-/*    @Override
-    protected void onPause() {
-        super.onPause();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mNotificationHelper.cancel();
+        Log.i(LOG_TAG, "onResume");
+    }
 
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt("cartItems", cartItems);
-        editor.putInt("gridNum", gridNumber);
-        editor.apply();
-
-        Log.i(LOG_TAG, "onPause");
-    }*/
 }

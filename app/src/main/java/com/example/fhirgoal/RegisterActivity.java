@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final String LOG_TAG = RegisterActivity.class.getName();
-    private static final String PREF_KEY = RegisterActivity.class.getPackage().toString();
+    private static final String PREF_KEY = "12345";
     private static final int SECRET_KEY = 99;
 
     EditText userNameEditText;
@@ -50,21 +50,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         passwordEditText = findViewById(R.id.passwordEditText);
         passwordConfirmEditText = findViewById(R.id.passwordAgainEditText);
         phoneEditText = findViewById(R.id.phoneEditText);
-
-
-        preferences = getSharedPreferences(PREF_KEY, MODE_PRIVATE);
-        String userName = preferences.getString("userName", "");
-        String password = preferences.getString("password", "");
-
-        userNameEditText.setText(userName);
-        passwordEditText.setText(password);
-        passwordConfirmEditText.setText(password);
-
-//        spinner.setOnItemSelectedListener(this);
-      //  ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-       //         R.array.phone_labels, android.R.layout.simple_spinner_item);
-     //   adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-      //  spinner.setAdapter(adapter);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -120,6 +105,14 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     @Override
     protected void onStart() {
         super.onStart();
+        preferences = getSharedPreferences(PREF_KEY, MODE_PRIVATE);
+        String userName = preferences.getString("email", "");
+        String password = preferences.getString("password", "");
+
+        userEmailEditText.setText(userName);
+        passwordEditText.setText(password);
+        passwordConfirmEditText.setText(password);
+
         Log.i(LOG_TAG, "onStart");
     }
 

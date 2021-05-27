@@ -7,22 +7,36 @@
     android:layout_margin="8dp"
     tools:context=".ListGoalsActivity">
 
-    <Button
-        android:id="@+id/new_b"
-        android:layout_width="wrap_content"
-        android:layout_height="51dp"
-        android:layout_marginTop="20dp"
-        android:onClick="newItem"
-        android:text="@string/add"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView"
-        tools:layout_editor_absoluteX="124dp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/new_b"
+                android:layout_width="wrap_content"
+                android:layout_height="51dp"
+                android:layout_marginTop="4dp"
+                android:onClick="newItem"
+                android:text="@string/add"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="16dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

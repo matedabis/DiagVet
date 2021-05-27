@@ -25,7 +25,6 @@ public class ListGoalsAdapter extends RecyclerView.Adapter<ListGoalsAdapter.View
     private ArrayList<Goal> mGoalData;
     private ArrayList<Goal> mGoalDataAll;
     private Context mContext;
-    private int lastPosition = -1;
 
     ListGoalsAdapter(Context context, ArrayList<Goal> itemsData) {
         this.mGoalData = itemsData;
@@ -50,10 +49,12 @@ public class ListGoalsAdapter extends RecyclerView.Adapter<ListGoalsAdapter.View
         holder.bindTo(currentItem);
 
 
-        if(holder.getAdapterPosition() > lastPosition) {
+        if((holder.getAdapterPosition() % 2 == 0)) {
             Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.slide_in_row);
             holder.itemView.startAnimation(animation);
-            lastPosition = holder.getAdapterPosition();
+        } else {
+            Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.slide_left);
+            holder.itemView.startAnimation(animation);
         }
     }
 

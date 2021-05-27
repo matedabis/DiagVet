@@ -27,7 +27,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getName();
-    private static final String PREF_KEY = MainActivity.class.getPackage().toString();
+    private static final String PREF_KEY = "12345";
     private static final int RC_SIGN_IN = 123;
     private static final int SECRET_KEY = 99;
 
@@ -50,12 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
         preferences = getSharedPreferences(PREF_KEY, MODE_PRIVATE);
         mAuth = FirebaseAuth.getInstance();
-
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         Log.i(LOG_TAG, "onCreate");
     }
