@@ -168,6 +168,12 @@ public class ListGoalsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void goBack(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("SECRET_KEY", SECRET_KEY);
+        startActivity(intent);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
