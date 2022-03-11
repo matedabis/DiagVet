@@ -22,6 +22,7 @@
                 android:layout_marginTop="4dp"
                 android:onClick="newItem"
                 android:text="@string/add"
+                app:backgroundTint="#2196F3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
@@ -33,6 +34,7 @@
                 android:layout_marginTop="4dp"
                 android:onClick="goBack"
                 android:text="@string/logout"
+                app:backgroundTint="#C60101"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/new_b" />

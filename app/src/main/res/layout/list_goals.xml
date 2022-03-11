@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp">
@@ -67,17 +68,19 @@
                 android:id="@+id/modify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/modify"
-                android:onClick="modify"
                 android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"/>
+                android:layout_marginRight="12dp"
+                android:onClick="modify"
+                android:text="@string/modify"
+                app:backgroundTint="#2196F3" />
 
             <Button
                 android:id="@+id/delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
                 android:text="@string/delete"
-                android:layout_marginRight="12dp"/>
+                app:backgroundTint="#2196F3" />
         </LinearLayout>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
