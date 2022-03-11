@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.List;
 
-public class Goal {
+public class Illness {
 
     private String id;
 
@@ -43,9 +43,9 @@ public class Goal {
     private String outcomeCode;
     private List<String> outcomeReference;
 
-    public Goal() {}
+    public Illness() {}
 
-    public Goal(String text, String category, String lifecycleStatus, String description, String dueDate) {
+    public Illness(String text, String category, String lifecycleStatus, String description, String dueDate) {
         this.text = text;
         this.category = category;
         this.lifecycleStatus = lifecycleStatus;

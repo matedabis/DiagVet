@@ -2,7 +2,6 @@ package com.example.fhirgoal;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +9,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,31 +16,31 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ListGoalsAdapter extends RecyclerView.Adapter<ListGoalsAdapter.ViewHolder> implements Filterable {
+public class ListIllnessesAdapter extends RecyclerView.Adapter<ListIllnessesAdapter.ViewHolder> implements Filterable {
 
     private static final int SECRET_KEY = 99;
-    private ArrayList<Goal> mGoalData;
-    private ArrayList<Goal> mGoalDataAll;
+    private ArrayList<Illness> mIllnessData;
+    private ArrayList<Illness> mIllnessDataAll;
     private Context mContext;
 
-    ListGoalsAdapter(Context context, ArrayList<Goal> itemsData) {
-        this.mGoalData = itemsData;
-        this.mGoalDataAll = itemsData;
+    ListIllnessesAdapter(Context context, ArrayList<Illness> itemsData) {
+        this.mIllnessData = itemsData;
+        this.mIllnessDataAll = itemsData;
         this.mContext = context;
     }
 
     @NonNull
     @Override
-    public ListGoalsAdapter.ViewHolder onCreateViewHolder(
+    public ListIllnessesAdapter.ViewHolder onCreateViewHolder(
             @NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(mContext)
                 .inflate(R.layout.list_goals, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(ListGoalsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ListIllnessesAdapter.ViewHolder holder, int position) {
         // Get current sport.
-        Goal currentItem = mGoalData.get(position);
+        Illness currentItem = mIllnessData.get(position);
 
         // Populate the textviews with data.
         holder.bindTo(currentItem);
@@ -61,7 +58,7 @@ public class ListGoalsAdapter extends RecyclerView.Adapter<ListGoalsAdapter.View
 
     @Override
     public int getItemCount() {
-        return mGoalData.size();
+        return mIllnessData.size();
     }
 
 
@@ -76,17 +73,17 @@ public class ListGoalsAdapter extends RecyclerView.Adapter<ListGoalsAdapter.View
     private Filter filter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
-            ArrayList<Goal> filteredList = new ArrayList<>();
+            ArrayList<Illness> filteredList = new ArrayList<>();
             FilterResults results = new FilterResults();
 
             if(charSequence == null || charSequence.length() == 0) {
-                results.count = mGoalDataAll.size();
-                results.values = mGoalDataAll;
+                results.count = mIllnessDataAll.size();
+                results.values = mIllnessDataAll;
             } else {
                 String filterPattern = charSequence.toString().toLowerCase().trim();
-                for(Goal goal : mGoalDataAll) {
-                    if(goal.getText().toLowerCase().contains(filterPattern)){
-                        filteredList.add(goal);
+                for(Illness illness : mIllnessDataAll) {
+                    if(illness.getText().toLowerCase().contains(filterPattern)){
+                        filteredList.add(illness);
                     }
                 }
 
@@ -99,7 +96,7 @@ public class ListGoalsAdapter extends RecyclerView.Adapter<ListGoalsAdapter.View
 
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            mGoalData = (ArrayList)filterResults.values;
+            mIllnessData = (ArrayList)filterResults.values;
             notifyDataSetChanged();
         }
     };
@@ -126,15 +123,15 @@ public class ListGoalsAdapter extends RecyclerView.Adapter<ListGoalsAdapter.View
 
         }
 
-        void bindTo(Goal currentItem){
+        void bindTo(Illness currentItem){
             mTitleText.setText(currentItem.getText());
             mInfoText.setText(currentItem.getDescription());
             mDue.setText(currentItem.getDueDate());
             mCategory.setText(currentItem.getCategory());
             mStatus.setText(currentItem.getLifecycleStatus());
 
-            itemView.findViewById(R.id.delete).setOnClickListener(view -> ((ListGoalsActivity)mContext).deleteItem(currentItem));
-            itemView.findViewById(R.id.modify).setOnClickListener(view -> ((ListGoalsActivity)mContext).modifyItem(currentItem));
+            itemView.findViewById(R.id.delete).setOnClickListener(view -> ((ListIllnessesActivity)mContext).deleteItem(currentItem));
+            itemView.findViewById(R.id.modify).setOnClickListener(view -> ((ListIllnessesActivity)mContext).modifyItem(currentItem));
         }
     }
 }

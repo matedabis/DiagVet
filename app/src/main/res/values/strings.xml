@@ -1,26 +1,27 @@
 <resources>
-    <string name="app_name">fhirgoal</string>
-    <string name="name">name</string>
-    <string name="password">password</string>
-    <string name="login">login</string>
-    <string name="register">register</string>
-    <string name="registration">register</string>
-    <string name="cancel">cancel</string>
-    <string name="user_name">user name</string>
+    <string name="app_name">DiagVet</string>
+    <string name="name">név</string>
+    <string name="password">jelszó</string>
+    <string name="login">bejelentkezés</string>
+    <string name="register">regisztráció</string>
+    <string name="registration">Regisztráció</string>
+    <string name="cancel">vissza</string>
+    <string name="user_name">felhasználó név</string>
     <string name="email_address">email</string>
-    <string name="password_again">repeat password</string>
-    <string name="phone_number">phone number</string>
+    <string name="password_again">jelszó újra</string>
+    <string name="phone_number">telefon szám</string>
     <string name="details">Description</string>
-    <string name="delete">delete</string>
-    <string name="modify">modify</string>
+    <string name="delete">törlés</string>
+    <string name="modify">módosítás</string>
     <string name="title">title</string>
     <string name="edit">edit</string>
     <string name="save">save</string>
     <string name="status">status</string>
     <string name="category">category</string>
     <string name="due">due to</string>
-    <string name="add">Add new goal</string>
-    <string name="logout">Logout and exit</string>
+    <string name="add">Betegség hozzáadása</string>
+    <string name="logout">Kijelentkezés</string>
+    <string name="licenseNo">licensz szám</string>
 
     <string-array name="goal_texts" >
         <item>AAAAAAAAAAAA</item>

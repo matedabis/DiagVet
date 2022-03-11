@@ -42,7 +42,7 @@ public class NotificationHelper {
     }
 
     public void send(String message) {
-        Intent intent = new Intent(mContext, ListGoalsActivity.class);
+        Intent intent = new Intent(mContext, ListIllnessesActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(mContext, NOTIFICATION_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext, CHANNEL_ID)

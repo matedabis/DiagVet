@@ -27,6 +27,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     EditText passwordEditText;
     EditText passwordConfirmEditText;
     EditText phoneEditText;
+    EditText licenseNoEditText;
 
     private SharedPreferences preferences;
     private FirebaseAuth mAuth;
@@ -36,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        setTitle("Goal tracker - register");
+        setTitle("DiagVet - register");
 
         Bundle bundle = getIntent().getExtras();
         int secret_key = bundle.getInt("SECRET_KEY");
@@ -50,6 +51,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         passwordEditText = findViewById(R.id.passwordEditText);
         passwordConfirmEditText = findViewById(R.id.passwordAgainEditText);
         phoneEditText = findViewById(R.id.phoneEditText);
+        licenseNoEditText = findViewById(R.id.licenseNoEditText);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -62,6 +64,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         String password = passwordEditText.getText().toString();
         String passwordConfirm = passwordConfirmEditText.getText().toString();
         String phone = phoneEditText.getText().toString();
+        String licenseNo = licenseNoEditText.getText().toString();
 
         if (!password.equals(passwordConfirm)) {
             Log.e(LOG_TAG, "Register fail: confirm password does not match password");
@@ -73,6 +76,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             Toast.makeText(RegisterActivity.this, "Register fail: missing user data", Toast.LENGTH_LONG).show();
             return;
         }
+        // LICENSE NO VALIDATION???
 
 
         Log.i(LOG_TAG, "Regisztrált: " + userName + ", e-mail: " + email);
@@ -96,7 +100,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     }
 
     private void startTracker() {
-        Intent intent = new Intent(this, ListGoalsAdapter.class);
+        Intent intent = new Intent(this, ListIllnessesAdapter.class);
         intent.putExtra("SECRET_KEY", SECRET_KEY);
         startActivity(intent);
     }

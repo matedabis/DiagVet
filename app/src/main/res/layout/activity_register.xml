@@ -12,12 +12,12 @@
         android:id="@+id/registrationTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/register_margin_top"
-        android:text="@string/registration"
-        android:textSize="24sp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:textAlignment="center"/>
+        android:layout_marginTop="@dimen/register_margin_top"
+        android:text="@string/registration"
+        android:textAlignment="center"
+        android:textSize="24sp" />
 
     <EditText
         android:id="@+id/userNameEditText"
@@ -87,11 +87,23 @@
         android:inputType="phone"
         android:layout_below="@id/passwordAgainEditText"/>
 
+    <EditText
+        android:id="@+id/licenseNoEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/default_margin_side"
+        android:layout_marginTop="@dimen/register_margin_top"
+        android:layout_marginRight="@dimen/default_margin_side"
+        android:ems="10"
+        android:hint="@string/licenseNo"
+        android:inputType="phone"
+        android:layout_below="@id/phoneEditText"/>
+
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/phoneEditText"
+        android:layout_below="@id/licenseNoEditText"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"

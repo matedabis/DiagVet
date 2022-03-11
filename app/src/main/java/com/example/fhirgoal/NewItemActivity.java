@@ -39,7 +39,7 @@ public class NewItemActivity extends AppCompatActivity implements AdapterView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_item);
 
-        setTitle("Goal tracker - modify");
+        setTitle("DiagVet - Új betegség hozzáadása");
 
         Bundle bundle = getIntent().getExtras();
         int secret_key = bundle.getInt("SECRET_KEY");
@@ -94,7 +94,7 @@ public class NewItemActivity extends AppCompatActivity implements AdapterView.On
     }
 
     private void startTracker() {
-        Intent intent = new Intent(this, ListGoalsActivity.class);
+        Intent intent = new Intent(this, ListIllnessesActivity.class);
         startActivity(intent);
     }
 

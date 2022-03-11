@@ -1,20 +1,12 @@
 package com.example.fhirgoal;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,17 +15,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
-
-public class ListGoalsActivity extends AppCompatActivity {
-    private static final String LOG_TAG = ListGoalsActivity.class.getName();
+public class ListIllnessesActivity extends AppCompatActivity {
+    private static final String LOG_TAG = ListIllnessesActivity.class.getName();
     private static final int SECRET_KEY = 99;
     private FirebaseUser user;
 
@@ -44,8 +31,8 @@ public class ListGoalsActivity extends AppCompatActivity {
 
     // Member variables.
     private RecyclerView mRecyclerView;
-    private ArrayList<Goal> mItemsData;
-    private ListGoalsAdapter mAdapter;
+    private ArrayList<Illness> mItemsData;
+    private ListIllnessesAdapter mAdapter;
 
     private NotificationHelper mNotificationHelper;
 
@@ -56,7 +43,7 @@ public class ListGoalsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goal_list);
 
-        setTitle("Goal tracker - Goals");
+        setTitle("DiagVet - tünet kereső");
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null) {
@@ -83,7 +70,7 @@ public class ListGoalsActivity extends AppCompatActivity {
         mNotificationHelper = new NotificationHelper(this);
 
         // Initialize the adapter and set it to the RecyclerView.
-        mAdapter = new ListGoalsAdapter(this, mItemsData);
+        mAdapter = new ListIllnessesAdapter(this, mItemsData);
         mRecyclerView.setAdapter(mAdapter);
         // Get the data.
     }
@@ -106,9 +93,9 @@ public class ListGoalsActivity extends AppCompatActivity {
         // Create the ArrayList of Sports objects with the titles and
         // information about each sport.
         for (int i = 0; i < goalsList.length; i++) {
-            mItemsData.add(new Goal(goalsList[i], goalsCategory[i], goalsStatus[i], goalsDesc[i],
+            mItemsData.add(new Illness(goalsList[i], goalsCategory[i], goalsStatus[i], goalsDesc[i],
                     goalsDue[i]));
-            mItems.add(new Goal(goalsList[i], goalsCategory[i], goalsStatus[i], goalsDesc[i],
+            mItems.add(new Illness(goalsList[i], goalsCategory[i], goalsStatus[i], goalsDesc[i],
                     goalsDue[i]));
         }
         // Notify the adapter of the change.
@@ -121,7 +108,7 @@ public class ListGoalsActivity extends AppCompatActivity {
         mItems.orderBy("text").limit(100).get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                        Goal item = document.toObject(Goal.class);
+                        Illness item = document.toObject(Illness.class);
                         item.setId(document.getId());
                         mItemsData.add(item);
                     }
@@ -136,7 +123,7 @@ public class ListGoalsActivity extends AppCompatActivity {
                 });
     }
 
-    public void deleteItem(Goal item) {
+    public void deleteItem(Illness item) {
         DocumentReference ref = mItems.document(item.getId());
         ref.delete()
                 .addOnSuccessListener(success -> {
@@ -150,7 +137,7 @@ public class ListGoalsActivity extends AppCompatActivity {
         mNotificationHelper.send("Item is successfully deleted");
     }
 
-    public void modifyItem(Goal item) {
+    public void modifyItem(Illness item) {
         Intent intent = new Intent(this, ModifyActivity.class);
         intent.putExtra("SECRET_KEY", SECRET_KEY);
         intent.putExtra("item", item.getId());
